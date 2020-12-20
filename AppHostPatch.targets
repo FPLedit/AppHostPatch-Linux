@@ -16,6 +16,8 @@
       <AppHostPatch_AppHostPath>$([System.String]::Copy('$(TargetFileName)').Replace('dll','exe'))</AppHostPatch_AppHostPath>
       <AppHostPatch_AppHostPath>$([System.IO.Path]::Combine( '$(PublishDir)', '$(AppHostPatch_AppHostPath)' ) )</AppHostPatch_AppHostPath>
       <AppHostPatch_AssemblyPath>$([System.IO.Path]::Combine( '$(PublishDir)', '$(TargetFileName)' ) )</AppHostPatch_AssemblyPath>
+      <AppHostPatcher_IsWinExe>0</AppHostPatcher_IsWinExe>
+      <AppHostPatcher_IsWinExe Condition=" '$(OutputType)' == 'WinExe' ">1</AppHostPatcher_IsWinExe>
     </PropertyGroup>
     
     <Message Importance="High" Text="Pathing app host PE Executable with resources &amp; WinGUI bit." />
@@ -34,7 +36,7 @@
     <Exec Command="$(AppHostPatch_ContainerTool) cp &quot;$(AppHostPatch_AssemblyPath)&quot; $(AppHostPatcher_ContainerId):w.dll" />
     
     <!-- Execute build step in container -->
-    <Exec Command="$(AppHostPatch_ContainerTool) exec -it $(AppHostPatcher_ContainerId) wine64 AppHostPatcher.exe w.exe w.dll" />
+    <Exec Command="$(AppHostPatch_ContainerTool) exec -it $(AppHostPatcher_ContainerId) wine64 AppHostPatcher.exe w.exe w.dll $(AppHostPatcher_IsWinExe)" />
     
     <!-- Copy back -->
     <Exec Command="$(AppHostPatch_ContainerTool) cp $(AppHostPatcher_ContainerId):w.exe &quot;$(AppHostPatch_AppHostPath)&quot;" />

@@ -20,7 +20,7 @@ podman build -t app-host-patcher -f Containerfile
 cid=$(podman run -dit app-host-patcher)
 podman cp $exe $cid:w.exe
 podman cp $dll $cid:w.dll
-podman exec -it $cid wine64 AppHostPatcher.exe w.exe w.dll
+podman exec -it $cid wine64 AppHostPatcher.exe w.exe w.dll 1
 podman cp $cid:w.exe $exe
 podman kill $cid
 podman rm $cid
