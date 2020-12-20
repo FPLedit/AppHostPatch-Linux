@@ -1,7 +1,9 @@
 <!--
-  FPLedit Build Process
-  Common build properties for all projects.
-  (c) Manuel Huber 2020
+  AppHostPatcher
+
+  Copyright © 2020 Manuel Huber
+See LICENSE for details <https://github.com/FPLedit/AppHostPatch-Linux/blob/main/LICENSE>.
+
 -->
 
 <Project>
